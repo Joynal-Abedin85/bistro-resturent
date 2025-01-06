@@ -6,6 +6,7 @@ import 'react-tabs/style/react-tabs.css';
 import useMenu from "../menucomponents/useMenu";
 import Foodcard from "../menucomponents/Foodcard";
 import { useParams } from "react-router-dom";
+import Ordertab from "../menucomponents/Ordertab";
 
 
 const Food = () => {
@@ -33,40 +34,20 @@ const Food = () => {
           
         </TabList>
 
-        <TabPanel>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-8 gap-8">
-                {
-                    soup.map(item => <Foodcard item={item}></Foodcard>)
-                }
-            </div>
+        <TabPanel >
+            <Ordertab items={dessert}></Ordertab>
         </TabPanel>
-        <TabPanel>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-8 gap-8">
-                {
-                    dessert.map(item => <Foodcard item={item}></Foodcard>)
-                }
-            </div>
+        <TabPanel >
+            <Ordertab items={soup}></Ordertab>
         </TabPanel>
-        <TabPanel>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-8 gap-8">
-                {
-                    pizza.map(item => <Foodcard item={item}></Foodcard>)
-                }
-            </div>
+        <TabPanel >
+            <Ordertab items={pizza}></Ordertab>
         </TabPanel>
-        <TabPanel>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-8 gap-8">
-                {
-                    salad.map(item => <Foodcard item={item}></Foodcard>)
-                }
-            </div>
+        <TabPanel >
+            <Ordertab items={salad}></Ordertab>
         </TabPanel>
-        <TabPanel>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 mt-8 gap-8">
-                {
-                    drinks.map(item => <Foodcard item={item}></Foodcard>)
-                }
-            </div>
+        <TabPanel >
+            <Ordertab items={drinks}></Ordertab>
         </TabPanel>
       </Tabs>
     </div>
