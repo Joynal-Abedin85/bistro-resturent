@@ -1,12 +1,39 @@
-import React from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
+import { Authcontext } from './Authprovider';
+import { NavLink } from 'react-router-dom';
 
 const Login = () => {
 
+    const {signuser} = useContext(Authcontext)
+
+    const capcharef = useRef(null)
+
+    const [disabled,setdisabled] = useState(true)
+
+
+    useEffect(()=> {
+        loadCaptchaEnginge(6);
+    },[])
+
+    const handlecapcha = (e) => {
+        const usercapcha = e.target.value
+        console.log(usercapcha)
+        if(validateCaptcha(usercapcha)){
+            setdisabled(false)
+        } else{
+            setdisabled(true)
+        }
+    }
     const handlesubmit= (e) =>  {
         e.preventDefault()
         const email = e.target.email.value
         const password = e.target.password.value
         console.log(email,password)
+        signuser(email,password)
+            .then(res => {
+                console.log(res.user)
+            })
 
     }
     return (
@@ -36,10 +63,25 @@ const Login = () => {
             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
           </label>
         </div>
-        <div className="form-control mt-6">
-          <button className="btn btn-primary">Login</button>
+        <div className="form-control">
+          <label className="label">
+          <LoadCanvasTemplate />
+          </label>
+          <input onBlur={handlecapcha} type="text"  name='capcha' placeholder="type capcha" className="input input-bordered" required />
+          <h2  className='btn mt-4 hover:text-white text-black bg-slate-400'>validate
+
+          </h2>
         </div>
+        <div>
+        <h2>if you dont have account <NavLink className='text-amber-500' to='/register' >register</NavLink>  </h2>
+        </div>
+        
+        <div className="form-control mt-6">
+          <button disabled={disabled} className="btn btn-primary">Login</button>
+        </div>
+        
       </form>
+      
     </div>
   </div>
 </div>
