@@ -2,9 +2,13 @@ import React, { useContext } from "react";
 import { Authcontext } from "./Authprovider";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import useaxiospublic from "../hook/useaxiospublic";
+import Swal from "sweetalert2";
+import Sociallogin from "./Sociallogin";
 
 const Register = () => {
   const navigate = useNavigate()
+  const axiospublic = useaxiospublic()
   const {
     register,
     handleSubmit,
@@ -20,8 +24,25 @@ const Register = () => {
       console.log(result.user);
       updateprofile(data.name, data.photoURL)
       .then(()=> {
-          console.log("user update")
-          navigate("/")
+        const userinfo  = {
+          name: data.name,
+          email: data.email
+        }
+          axiospublic.post('/users', userinfo)
+          .then(res => {
+            if(res.data.insertedId){
+              reset()
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "update been saved",
+                showConfirmButton: false,
+                timer: 1500
+              });
+              navigate("/")
+            }
+          })
+          
       })
       .catch(error => console.log(error))
     });
@@ -109,6 +130,7 @@ const Register = () => {
               <button className="btn btn-primary">register</button>
             </div>
           </form>
+          <Sociallogin></Sociallogin>
         </div>
       </div>
     </div>
