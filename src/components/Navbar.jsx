@@ -1,22 +1,30 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { Authcontext } from "../auth/Authprovider";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Navbar = () => {
-  const {user ,logout} = useContext(Authcontext)
+  const { user, logout } = useContext(Authcontext);
 
   const logouts = () => {
-    logout()
-    .then(()=> {})
-  }
+    logout().then(() => {});
+  };
 
-  const menu = <>
-      <NavLink to='/'>HOME</NavLink>
+  const menu = (
+    <>
+      <NavLink to="/">HOME</NavLink>
       <NavLink>CONTECTT US</NavLink>
       <NavLink>DASHBOARD</NavLink>
-      <NavLink to='/ourmenu'>OUR MENU</NavLink>
-      <NavLink to='/food/soup'>Food order</NavLink>
-  </>
+      <NavLink to="/ourmenu">OUR MENU</NavLink>
+      <NavLink to="/food/soup">Food order</NavLink>
+      <NavLink>
+        <button className="btn">
+          <FaShoppingCart></FaShoppingCart>
+          <div className="badge badge-secondary">+99</div>
+        </button>
+      </NavLink>
+    </>
+  );
   return (
     <div className="navbar text-white bg-base-100 fixed z-20 bg-opacity-35 backdrop-blur-md">
       <div className="navbar-start">
@@ -47,19 +55,28 @@ const Navbar = () => {
         <a className="btn btn-ghost text-xl">BISTRO BOSS</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1  gap-4">
-          {menu}
-        </ul>
+        <ul className="menu menu-horizontal px-1  gap-4">{menu}</ul>
       </div>
       <div className="navbar-end">
-        {
-          user ? <>
-           <h3 onClick={logouts} className="btn hover:bg-amber-400 hover:text-white border-transparent hover:bg-transparent border-amber-500 text-amber-500 hover:border-2">sign out</h3>
-          </> : <>
-          <NavLink to='login' className="btn bg-amber-400 text-black border-transparent hover:bg-transparent hover:border-amber-500 hover:text-amber-500 hover:border-2">sign in</NavLink>
+        {user ? (
+          <>
+            <h3
+              onClick={logouts}
+              className="btn hover:bg-amber-400 hover:text-white border-transparent hover:bg-transparent border-amber-500 text-amber-500 hover:border-2"
+            >
+              sign out
+            </h3>
           </>
-        }
-        
+        ) : (
+          <>
+            <NavLink
+              to="login"
+              className="btn bg-amber-400 text-black border-transparent hover:bg-transparent hover:border-amber-500 hover:text-amber-500 hover:border-2"
+            >
+              sign in
+            </NavLink>
+          </>
+        )}
       </div>
     </div>
   );

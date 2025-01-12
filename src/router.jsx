@@ -8,6 +8,7 @@ import Menupage from "./pages/Menupage";
 import Food from "./pages/Food";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import Privateroute from "./privateroute";
 
 
   const router = createBrowserRouter([
@@ -21,7 +22,7 @@ import Register from "./auth/Register";
         },
         {
             path: 'ourmenu',
-            element: <Menupage></Menupage>
+            element: <Privateroute><Menupage></Menupage></Privateroute>
         },
         {
           path: '/food/:category',
@@ -33,7 +34,7 @@ import Register from "./auth/Register";
         },
         {
           path: 'register',
-          element: <Register></Register>
+          element:  <Register></Register>
 
         }
 

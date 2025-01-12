@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 import { Authcontext } from './Authprovider';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
@@ -11,9 +11,14 @@ const Login = () => {
 
     const [disabled,setdisabled] = useState(true)
 
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    let from = location.state?.from?.pathname || "/"
+
 
     useEffect(()=> {
-        loadCaptchaEnginge(6);
+        loadCaptchaEnginge(2);
     },[])
 
     const handlecapcha = (e) => {
@@ -33,6 +38,7 @@ const Login = () => {
         signuser(email,password)
             .then(res => {
                 console.log(res.user)
+                navigate(from, {replace: true})
             })
 
     }
