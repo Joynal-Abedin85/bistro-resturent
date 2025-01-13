@@ -1,14 +1,49 @@
 import React from "react";
-import { FaHamburger, FaHome, FaList, FaPhone, FaShoppingCart, FaStar } from "react-icons/fa";
+import { FaBook, FaHamburger, FaHome, FaList, FaPhone, FaShoppingCart, FaStar, FaUser, FaUsers, FaUtensils } from "react-icons/fa";
 import { FaCalendar, FaWallet } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+    const isadmin = true
   return (
     <div className="flex">
       <div className="bg-amber-400 text-black font-bold w-60 min-h-full">
         <ul className="menu  p-4 space-y-3 ">
+          {
+            isadmin ? <>
+            <li>
+            <NavLink to="/dashboard/adminhome">
+              <FaHome></FaHome>
+              Admin Home
+            </NavLink>
+          </li>
           <li>
+            <NavLink to="/dashboard/additems">
+              <FaUtensils></FaUtensils>
+              Add items
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/manageitems">
+              <FaList></FaList>
+              manage items
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/managebookings">
+              <FaBook></FaBook>
+              Manage bookings
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/allusers">
+              <FaUsers></FaUsers>
+              All users
+            </NavLink>
+          </li>
+          
+            </> : <>
+            <li>
             <NavLink to="/dashboard/home">
               <FaHome></FaHome>
               User Home
@@ -43,7 +78,8 @@ const Dashboard = () => {
               <FaList></FaList>
               My Booking
             </NavLink>
-          </li>
+          </li></>
+          }
 
           <div className="divider divider-primary">or</div>
 
