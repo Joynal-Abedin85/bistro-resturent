@@ -2,9 +2,10 @@ import React from "react";
 import { FaBook, FaHamburger, FaHome, FaList, FaPhone, FaShoppingCart, FaStar, FaUser, FaUsers, FaUtensils } from "react-icons/fa";
 import { FaCalendar, FaWallet } from "react-icons/fa6";
 import { NavLink, Outlet } from "react-router-dom";
+import useadmin from "../hook/useadmin";
 
 const Dashboard = () => {
-    const isadmin = true
+    const [isadmin] = useadmin()
   return (
     <div className="flex">
       <div className="bg-amber-400 text-black font-bold w-60 min-h-full">
