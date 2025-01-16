@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import useaxios from '../../hook/useaxios'
 import usecart from '../../hook/usecart'
 import { Authcontext } from "../../auth/Authprovider";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 const Chackout = () => {
@@ -13,8 +15,9 @@ const Chackout = () => {
   const [transc,settransec] = useState('')
   const axiossecure = useaxios()
   const {user} = useContext(Authcontext)
-  const [cart] = usecart()
+  const [cart , refetch] = usecart()
   const totalprice = cart.reduce((total,item)=> total + item.price, 0)
+  const navigate = useNavigate()
 
   useEffect(()=>{
     axiossecure.post('/create-payment-intent', {price: totalprice})
@@ -81,6 +84,17 @@ const Chackout = () => {
 
         const res = await  axiossecure.post('/payments', payment)
         console.log(res.data)
+        refetch();
+        if(res.data?.paymentResult?.insertedId){
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate('/dashboard/paymenthistory')
+        }
       }
     }
   };
