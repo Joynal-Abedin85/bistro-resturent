@@ -6,6 +6,8 @@ import { register } from "swiper/element";
 import useaxiospublic from "../../hook/useaxiospublic";
 import useaxios from "../../hook/useaxios";
 import Swal from "sweetalert2";
+
+
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY
 
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`
